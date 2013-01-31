@@ -5,3 +5,4 @@
 build
 dist
 pkg
+.venv
