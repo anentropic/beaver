@@ -4,12 +4,9 @@ from functools import partial
 from beaver.transport import Transport
 
 
-class BaseCeleryTransport(Transport):
-
-    def __init__(self, beaver_config, file_config, logger=None):
-        super(CeleryTransport, self).__init__(beaver_config, file_config, logger=logger)
-        # This is an abstract base class, need to supply a string or task object here:
-        self.celery_task = None
+class CeleryTransport(Transport):
+    # need to supply a string (dotted import path) or celery task object here:
+    celery_task = None
 
     def callback(self, filename, lines):
         if isinstance(self.celery_task, basestring):
