@@ -1,3 +1,4 @@
+import datetime
 import os
 
 
@@ -73,8 +74,13 @@ class Transport(object):
         """
         return True
 
-    def format(self, filename, timestamp, line):
+    def timestamp(self):
+        return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+    def format(self, filename, line, timestamp=None):
         """Returns a formatted log line"""
+        if timestamp is None:
+            timestamp = self.timestamp()
         return self._formatter({
             '@source': "file://{0}{1}".format(self._current_host, filename),
             '@type': self._file_config.get('type', filename),
