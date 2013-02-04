@@ -53,6 +53,8 @@ class Transport(object):
             def string_formatter(data):
                 return "[{0}] [{1}] {2}".format(data['@source_host'], data['@timestamp'], data['@message'])
             self._formatter = string_formatter
+        elif beaver_config.get('format') == 'dict':
+            self._formatter = lambda data: data
         else:
             def null_formatter(data):
                 return data['@message']
