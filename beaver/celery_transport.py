@@ -1,5 +1,4 @@
 import celery
-from functools import partial
 
 from beaver.transport import Transport
 
@@ -17,5 +16,5 @@ class CeleryTransport(Transport):
             except AttributeError:
                 raise NotImplemented('You must supply a Celery task object')
 
-        lines = map(partial(self.format, filename=filename), lines)
+        lines = [self.format(filename, line) for line in lines]
         task_method(args=[lines])
