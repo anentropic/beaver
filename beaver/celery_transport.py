@@ -1,3 +1,4 @@
+from functools import partial
 from beaver.transport import Transport
 
 
@@ -17,5 +18,4 @@ class CeleryTransport(Transport):
                 raise NotImplemented('You must supply a Celery task object')
 
         lines = [self.format(filename, line) for line in lines]
-        # beaver ignores return values but it helps for testing
-        return task_method(args=[lines])
+        task_method(args=[lines])
